@@ -25,7 +25,7 @@ import { TodosModule } from './todos/todos.module';
         '727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f',
       database: 'd190m68fp34s15',
       entities: [CategoryEntity, TodosEntity],
-      synchronize: false,
+      synchronize: true,
       extra: {
         ssl: {
           rejectUnauthorized: false,
