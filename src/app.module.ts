@@ -16,6 +16,7 @@ import { TodosModule } from './todos/todos.module';
       playground: true,
     }),
     TypeOrmModule.forRoot({
+      // url: 'postgres://hvypgmuivqagyy:727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f@ec2-54-194-211-183.eu-west-1.compute.amazonaws.com:5432/d190m68fp34s15',
       type: 'postgres',
       host: 'ec2-54-194-211-183.eu-west-1.compute.amazonaws.com',
       port: 5432,
@@ -26,7 +27,9 @@ import { TodosModule } from './todos/todos.module';
       entities: [CategoryEntity, TodosEntity],
       synchronize: false,
       extra: {
-        ssl: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
     }),
     CategoryModule,
