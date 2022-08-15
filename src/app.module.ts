@@ -17,11 +17,12 @@ import { TodosModule } from './todos/todos.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'ec2-54-194-211-183.eu-west-1.compute.amazonaws.com',
       port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'myToDos',
+      username: 'hvypgmuivqagyy',
+      password:
+        '727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f',
+      database: 'd190m68fp34s15',
       entities: [CategoryEntity, TodosEntity],
       synchronize: true,
     }),
