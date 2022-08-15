@@ -1,0 +1,20 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CategoryEntity {
+  id: ID!
+  title: String!
+  todos: [TodosEntity!]
+}
+
+type Query {
+  categories: [CategoryEntity!]!
+}
+
+type TodosEntity {
+  category: CategoryEntity!
+  id: ID!
+  isCompleted: Boolean!
+  text: String!
+}
