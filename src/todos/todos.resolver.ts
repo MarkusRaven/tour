@@ -1,3 +1,4 @@
+import { UpdateTodoInput } from './dto/update-todos.input';
 import { CreateTodosInput, AddTodosInput } from './dto/create-todos.input';
 import { CategoryEntity } from './../category/category.entity';
 import { TodosEntity } from './todos.entity';
@@ -7,19 +8,28 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => CategoryEntity)
 export class TodosResolver {
-  // constructor(
-  //   @Inject(TodosService) private readonly todosService: TodosService,
-  // ) {}
-  // @Mutation(() => TodosEntity)
-  // async createTodo(
-  //   @Args('input') todoInput: CreateTodosInput,
-  // ): Promise<TodosEntity> {
-  //   return this.todosService.createTodo(todoInput);
-  // }
-  // @Mutation(() => TodosEntity)
-  // async addTodo(
-  //   @Args('input') updateInput: AddTodosInput,
-  // ): Promise<TodosEntity> {
-  //   return this.todosService.addTodo(updateInput);
-  // }
+  constructor(
+    @Inject(TodosService) private readonly todosService: TodosService,
+  ) {}
+
+  @Mutation(() => TodosEntity)
+  async createTodo(
+    @Args('input') todoInput: CreateTodosInput,
+  ): Promise<TodosEntity> {
+    return this.todosService.createTodo(todoInput);
+  }
+
+  @Mutation(() => TodosEntity)
+  async addTodo(
+    @Args('input') updateInput: AddTodosInput,
+  ): Promise<TodosEntity> {
+    return this.todosService.addTodo(updateInput);
+  }
+
+  @Mutation(() => TodosEntity)
+  async updateTodo(
+    @Args('input') updateInput: UpdateTodoInput,
+  ): Promise<TodosEntity> {
+    return this.todosService.updateTodo(updateInput);
+  }
 }

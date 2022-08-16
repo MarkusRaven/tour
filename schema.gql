@@ -2,10 +2,26 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddTodosInput {
+  categoryId: Float!
+  text: String!
+}
+
 type CategoryEntity {
   id: ID!
   title: String!
   todos: [TodosEntity!]
+}
+
+input CreateTodosInput {
+  categoryName: String!
+  text: String!
+}
+
+type Mutation {
+  addTodo(input: AddTodosInput!): TodosEntity!
+  createTodo(input: CreateTodosInput!): TodosEntity!
+  updateTodo(input: UpdateTodoInput!): TodosEntity!
 }
 
 type Query {
@@ -17,4 +33,8 @@ type TodosEntity {
   id: ID!
   isCompleted: Boolean!
   text: String!
+}
+
+input UpdateTodoInput {
+  todoId: Float!
 }

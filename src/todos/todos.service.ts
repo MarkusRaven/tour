@@ -1,3 +1,4 @@
+import { UpdateTodoInput } from './dto/update-todos.input';
 import { CategoryEntity } from './../category/category.entity';
 import { CreateTodosInput, AddTodosInput } from './dto/create-todos.input';
 import { TodosEntity } from './todos.entity';
@@ -30,8 +31,8 @@ export class TodosService {
     return todo;
   }
 
-  async createTodo(todosInput: CreateTodosInput): Promise<TodosEntity> {
-    const { categoryName, text } = todosInput;
+  async createTodo(todoInput: CreateTodosInput): Promise<TodosEntity> {
+    const { categoryName, text } = todoInput;
     const todoCategory = await this.categoryRepository.save({
       title: categoryName,
     });
@@ -43,5 +44,12 @@ export class TodosService {
       where: { id: todo.id },
       relations: ['category'],
     });
+  }
+
+  async updateTodo(todoInput: UpdateTodoInput): Promise<TodosEntity> {
+    const { todoId } = todoInput;
+    const todo = await this.todosRepository.findOneBy({ id: todoId });
+    todo.isCompleted = !todo.isCompleted;
+    return await this.todosRepository.save(todo);
   }
 }

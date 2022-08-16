@@ -16,22 +16,23 @@ import { TodosModule } from './todos/todos.module';
       playground: true,
       introspection: true,
     }),
-    TypeOrmModule.forRoot({
-      // url: 'postgres://hvypgmuivqagyy:727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f@ec2-54-194-211-183.eu-west-1.compute.amazonaws.com:5432/d190m68fp34s15',
-      type: 'postgres',
-      host: 'ec2-54-194-211-183.eu-west-1.compute.amazonaws.com',
-      port: 5432,
-      username: 'hvypgmuivqagyy',
-      password:
-        '727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f',
-      database: 'd190m68fp34s15',
-      entities: [CategoryEntity, TodosEntity],
-      synchronize: true,
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: 'ec2-54-194-211-183.eu-west-1.compute.amazonaws.com',
+        port: 5432,
+        username: 'hvypgmuivqagyy',
+        password:
+          '727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f',
+        database: 'd190m68fp34s15',
+        entities: [CategoryEntity, TodosEntity],
+        synchronize: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
         },
-      },
+      }),
     }),
     CategoryModule,
     TodosModule,
