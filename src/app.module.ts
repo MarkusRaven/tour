@@ -6,9 +6,11 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from './category/category.module';
 import { TodosModule } from './todos/todos.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
@@ -19,19 +21,18 @@ import { TodosModule } from './todos/todos.module';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
-        host: 'ec2-54-194-211-183.eu-west-1.compute.amazonaws.com',
-        port: 5432,
-        username: 'hvypgmuivqagyy',
-        password:
-          '727193ecdfd59229e0e9ef512c9a64dc19b54a1c59d8639d8092616ce075287f',
-        database: 'd190m68fp34s15',
+        host: process.env.TYPEORM_HOST,
+        port: parseInt(process.env.TYPEORM_PORT) || 5432,
+        username: process.env.TYPEORM_USERNAME,
+        password: process.env.TYPEORM_PASSWORD,
+        database: process.env.TYPEORM_DATABASE,
         entities: [CategoryEntity, TodosEntity],
         synchronize: true,
-        extra: {
-          ssl: {
-            rejectUnauthorized: false,
-          },
-        },
+        // extra: {
+        //   ssl: {
+        //     rejectUnauthorized: false,
+        //   },
+        // },
       }),
     }),
     CategoryModule,
